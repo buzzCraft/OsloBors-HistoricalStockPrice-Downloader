@@ -2,13 +2,14 @@
 """
 Created on Sun Oct 11 17:06:00 2020
 
-@author: theoo
+
 """
 
-import glob
+
 import os
 import pandas as pd
 import sys
+
 
 # get data file names
 
@@ -37,8 +38,11 @@ for filename in filenames:
     # print(filename)
     df = pd.read_csv(filename, sep=",")
     print(df.head())
-    df.drop(df.columns[0], axis=1, inplace=True)
+    
+    df.iloc[:, 0]= pd.to_datetime(df.iloc[:, 0]) #Convert date to datetime
+    # df.drop(df.columns[0], axis=1, inplace=True)
     print(df.head())
+    print(df.dtypes)
     # dfs.append(pd.read_csv(filename, sep=","))
 
 # Concatenate all data into one DataFrame
