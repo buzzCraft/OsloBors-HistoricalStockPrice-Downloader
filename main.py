@@ -8,7 +8,8 @@ Created on Wed Oct 14 16:03:19 2020
 import downloader
 import merger
 import os
-
+import dlClass
+import pandas as pd
 
 
     
@@ -24,3 +25,8 @@ path=os.path.join(basePath, 'data')
 df = merger.merge(path) #Merge data, set (path, True)to save combined df as csv
 
 print(df.head())
+
+# data = dlClass.OsloBorsData()
+# data.downloadData()
+# x = data.saveData()
+# print(x)

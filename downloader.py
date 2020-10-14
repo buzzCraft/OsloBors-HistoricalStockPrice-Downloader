@@ -50,6 +50,6 @@ if __name__ == "__main__":
     
     
     basePath= os.getcwd()
-    path=os.path.join(basePath, 'data')
+    path=os.path.join(os.getcwd(), 'data')
     print(path)
     stockDataDownloader(path)
