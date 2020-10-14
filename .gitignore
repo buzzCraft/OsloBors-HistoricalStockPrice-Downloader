@@ -255,3 +255,5 @@ data/VEI.csv
 data/.~lock.WWI.csv#
 combined_csv.csv
 data/comb/bigframe.csv
+__pycache__/merger.cpython-38.pyc
+__pycache__/downloader.cpython-38.pyc

@@ -27,31 +27,38 @@ def getFileList(path, extension):
         # print("Error getting the files, check path")
     return filenames
 
-basePath= os.getcwd()
-path=os.path.join(basePath, 'data')
-print(path)
-filenames = getFileList(path, ".csv")
+def merge(path, saveFile=False):
 
-dfs = []
-i=0
-for filename in filenames:
-
-    df = pd.read_csv(filename, sep=",") #Read the csv
-
+    print(path)
+    filenames = getFileList(path, ".csv")
     
-    df.iloc[:, 0]= pd.to_datetime(df.iloc[:, 0]) #Convert date to datetime
-
+    # dfs = []
+    i=0
+    for filename in filenames:
+    
+        df = pd.read_csv(filename, sep=",") #Read the csv
+    
         
-    if i == 0: #First run, keep a copy of the df as df2
-        df2 = df.copy()
-    elif i == 1: #Second run merge df2 with df
-        stack = pd.concat([df2, df], axis=1)
-    else: #After that, just add the new df's to the combined frame
-        stack = pd.concat([stack, df], axis=1)
-    i+=1
-        
+        df.iloc[:, 0]= pd.to_datetime(df.iloc[:, 0]) #Convert date to datetime
+    
+            
+        if i == 0: #First run, keep a copy of the df as df2
+            df2 = df.copy()
+        elif i == 1: #Second run merge df2 with df
+            stack = pd.concat([df2, df], axis=1)
+        else: #After that, just add the new df's to the combined frame
+            stack = pd.concat([stack, df], axis=1)
+        i+=1
+            
+    
+    # print(stack.head(5))
+    if saveFile:
+        stack.to_csv(os.path.join(path, 'comb', 'bigframe.csv'), sep=";")
+    return stack
 
-print(stack.head(5))
-stack.to_csv(os.path.join(path, 'comb', 'bigframe.csv'), sep=";")
+if __name__ == "__main__":
 
+    basePath= os.getcwd()
+    path=os.path.join(basePath, 'data')
+    merge(path)
 
