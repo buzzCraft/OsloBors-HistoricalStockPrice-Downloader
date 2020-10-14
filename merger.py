@@ -33,23 +33,25 @@ print(path)
 filenames = getFileList(path, ".csv")
 
 dfs = []
-
+i=0
 for filename in filenames:
-    # print(filename)
-    df = pd.read_csv(filename, sep=",")
-    print(df.head())
+
+    df = pd.read_csv(filename, sep=",") #Read the csv
+
     
     df.iloc[:, 0]= pd.to_datetime(df.iloc[:, 0]) #Convert date to datetime
-    # df.drop(df.columns[0], axis=1, inplace=True)
-    print(df.head())
-    print(df.dtypes)
-    # dfs.append(pd.read_csv(filename, sep=","))
 
-# Concatenate all data into one DataFrame
+        
+    if i == 0: #First run, keep a copy of the df as df2
+        df2 = df.copy()
+    elif i == 1: #Second run merge df2 with df
+        stack = pd.concat([df2, df], axis=1)
+    else: #After that, just add the new df's to the combined frame
+        stack = pd.concat([stack, df], axis=1)
+    i+=1
+        
 
-# big_frame = pd.concat(dfs, ignore_index=True)
+print(stack.head(5))
+stack.to_csv(os.path.join(path, 'comb', 'bigframe.csv'), sep=";")
 
-# print(big_frame.head(50))
-# big_frame.to_csv(os.path.join(path, 'bigframe.csv'))
 
-#combine all files in the list
