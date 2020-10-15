@@ -51,7 +51,7 @@ for stock in stockList:
     stock.downloadData()
     stock.readData()
     print(stock.data.head())
-#    stock.plotData()                                     #Time consuming!!
+    stock.plotData()                                     #Time consuming!!
 
 merger.merge(stockList, True)
 # data.downloadData()

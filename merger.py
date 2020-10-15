@@ -12,22 +12,19 @@ import pandas as pd
 
 def merge(stocks, saveFile=False):
     path = os.path.join(os.getcwd(), 'data')
-    i=0
+    first=True
     for stock in stocks:
     
-        df = stock.getData()
-    
-        
-        df.iloc[:, 0]= pd.to_datetime(df.iloc[:, 0]) #Convert date to datetime
-    
+        df = stock.getData() #Call the object for the dataframe    
             
-        if i == 0: #First run, keep a copy of the df as df2
+        if first: #First run, keep a copy of the df as df2
             stack = df.copy()
+            first = False
 
         else: #After that, just add the new df's to the combined frame
             
             stack = pd.concat([stack, df], axis=1)
-        i+=1
+        
             
     
     # print(stack.head(5))

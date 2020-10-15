@@ -36,7 +36,8 @@ class Stock():
     def readData(self):
         """ Method to read data from csv file"""
         self.data = pd.read_csv(self.filepath, sep=",")
-
+        self.data.iloc[:, 0]= pd.to_datetime(self.data.iloc[:, 0]) #Convert date to datetime
+        self.data.info()
     def getData(self):
         """ Return a dataframe with all data"""
         return self.data
