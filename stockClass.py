@@ -45,10 +45,7 @@ class Stock():
         return self.data
 
     def plotData(self):
-        """Method to plot stock price
-        #######################################
-        #Need to fix the date ticks           #      
-        #######################################   """ 
+        """Method to plot stock price""" 
         try:                               
             plt.figure(figsize=(10,10))
             plt.plot(self.data["Date"], self.data[f'{self.TICKER} Last'])
