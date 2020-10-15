@@ -36,8 +36,9 @@ class Stock():
     def readData(self):
         """ Method to read data from csv file"""
         self.data = pd.read_csv(self.filepath, sep=",")
-        self.data.iloc[:, 0]= pd.to_datetime(self.data.iloc[:, 0]) #Convert date to datetime
-        self.data.info()
+        if self.date:
+            self.data.iloc[:, 0]= pd.to_datetime(self.data.iloc[:, 0]) #Convert date to datetime
+            self.data.info()
     def getData(self):
         """ Return a dataframe with all data"""
         return self.data
@@ -51,7 +52,7 @@ class Stock():
             plt.figure(figsize=(10,10))
             plt.plot(self.data["Date"], self.data[f'{self.TICKER} Last'])
             plt.xlabel("date")
-            plt.ylabel("$ price")
+            plt.ylabel("price (NOK)")
             plt.title(f"{self.TICKER}  Stock Price (NOK)")
             plt.show()
         except:
@@ -61,6 +62,7 @@ class Stock():
 
     def downloadData(self, date=True):                                        #Set date = True for one file that have 5 yr of data                                      
         """Method to download data if needed"""
+        self.date=date
         req = requests.get(self.url)                                           #Request the dataset from url
         	        
         url_content = req.content                                              #Get the xlsx
@@ -70,12 +72,12 @@ class Stock():
         xlsx_file.close()                                                      #Close the file
         
 
-        self.xlsxToCsv(date) #Converting from xlsx to csv
+        self.xlsxToCsv() #Converting from xlsx to csv
         print(f'Historical data for {self.TICKER} downloaded')
         os.remove(os.path.join(self.path, f'{self.TICKER}.xlsx'))              #Deleting the xlsx file
         
 
-    def xlsxToCsv(self, date=False):  
+    def xlsxToCsv(self):  
         """Method to convert from xlsx to csv"""
         xfile = os.path.join(self.path, f'{self.TICKER}.xlsx')                 #Path to original xlsx file
         cfile = os.path.join(self.path, f'{self.TICKER}.csv')                  #Path to save csv file
@@ -83,7 +85,7 @@ class Stock():
         read_file = pd.read_excel(xfile)                                       #Read xlsx file
                                                                                #Rename columns
         read_file.rename(columns={'Siste': f'{self.TICKER} Last', 'Kjøper': 'Buy', 'Selger' : 'Sell', 'Høy' : 'High', 'Lav' : 'Low', 'Totalt omsatt(NOK)' : 'Total traded(NOK)', 'Totalt antall aksjer omsatt' : 'Volume', 'Antall off. handler' : 'Public trades', 'Antall handler totalt' : 'All trades'}, inplace=True)
-        if not date:                                                           #Drop the date column if date=False
+        if not self.date:                                                           #Drop the date column if date=False
             read_file.drop(read_file.columns[0], axis=1, inplace=True)
         else:
             read_file.rename(columns={f'{self.TICKER}': 'Date'}, inplace=True) #Rename and keep date if date=True   

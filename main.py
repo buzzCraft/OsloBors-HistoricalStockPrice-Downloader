@@ -33,7 +33,6 @@ import pandas as pd
 dir = os.path.join(os.path.join(os.getcwd(), 'data'))
 
 if not os.path.exists(dir):
-    print(1)
     os.mkdir(dir)
     os.mkdir(os.path.join(dir, 'comb'))
 
@@ -47,12 +46,15 @@ print(tickerList)
 stockList = []
 for TICKER in tickerList:
     stockList.append(stockClass.Stock(TICKER))
+date = True
 for stock in stockList:
-    stock.downloadData()
+    
+    stock.downloadData(date)
     stock.readData()
     print(stock.data.head())
     stock.plotData()                                     #Time consuming!!
-
+    date = False
+    
 merger.merge(stockList, True)
 # data.downloadData()
 # x = data.saveData()

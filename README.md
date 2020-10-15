@@ -10,7 +10,8 @@
     
     
 ## Issues:
-	-Date come as duplicate in the combined dataset. Before just removing it I must find a way to keep the dates from the last 5 yrs, since not all stocks have been on OBX for 5 years
+	-Date come as duplicate in the combined dataset. Before just removing it I must find a way 
+	to keep the dates from the last 5 yrs, since not all stocks have been on OBX for 5 years
 
 ## Plans:
 	* Make a class for merged file to get easier access
