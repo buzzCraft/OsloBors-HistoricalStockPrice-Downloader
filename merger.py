@@ -8,35 +8,14 @@ Created on Sun Oct 11 17:06:00 2020
 
 import os
 import pandas as pd
-import sys
 
 
-# get data file names
-
-def getFileList(path, extension):
-    filenames = []
-    
-    try:
-        for file in [f for f in os.listdir(path) if f.endswith('.csv')]:
-            filenames.append(os.path.join(path, file))
-            # print(os.path.join(path, file))
-    except FileNotFoundError:
-        print(f'File not foud, check the path: {path}')
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
-        # print("Error getting the files, check path")
-    return filenames
-
-def merge(path, saveFile=False):
-
-    print(path)
-    filenames = getFileList(path, ".csv")
-    
-    # dfs = []
+def merge(stocks, saveFile=False):
+    path = os.path.join(os.getcwd(), 'data')
     i=0
-    for filename in filenames:
+    for stock in stocks:
     
-        df = pd.read_csv(filename, sep=",") #Read the csv
+        df = stock.getData()
     
         
         df.iloc[:, 0]= pd.to_datetime(df.iloc[:, 0]) #Convert date to datetime

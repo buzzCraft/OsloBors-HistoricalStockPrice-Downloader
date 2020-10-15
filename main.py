@@ -22,10 +22,10 @@ Plans:
 
 """
 
-import downloader
+
 import merger
 import os
-import dlClass
+import stockClass
 import pandas as pd
 
 
@@ -33,17 +33,33 @@ import pandas as pd
 
 
 
-basePath= os.getcwd()  #Get path that main.py is saved in
-path=os.path.join(basePath, 'data') #In
+# basePath = os.getcwd()  #Get path that main.py is saved in
+# path = os.path.join(basePath, 'data') #In
 
-downloader.stockDataDownloader(path)    #Download data
+# downloader.stockDataDownloader(path)    #Download data
 
 
-df = merger.merge(path) #Merge data, set (path, True)to save combined df as csv
+# df = merger.merge(path) #Merge data, set (path, True)to save combined df as csv
 
-print(df.head())
+# print(df.head())
 
-# data = dlClass.OsloBorsData()
+tickerList=[]
+#Convert the CSV to list
+with open('./Tick.csv', 'r') as f:
+    liste = f.readlines()
+    for item in liste:
+        tickerList.append(item.rstrip("\n")) #Stripping newline in csv
+print(tickerList)
+stockList = []
+for TICKER in tickerList:
+    stockList.append(stockClass.Stock(TICKER))
+for stock in stockList:
+    stock.downloadData()
+    stock.readData()
+    print(stock.data.head())
+    stock.plotData()
+
+merger.merge(stockList, True)
 # data.downloadData()
 # x = data.saveData()
 # print(x)
