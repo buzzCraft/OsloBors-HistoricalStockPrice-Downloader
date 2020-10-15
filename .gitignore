@@ -272,3 +272,6 @@ data/s.txt
 __pycache__/dlClass.cpython-38.pyc
 *.pyc
 __pycache__/dlClass.cpython-38.pyc
+stockClass.py
+data/.~lock.XXL.csv#
+__pycache__/dlClass.cpython-38.pyc

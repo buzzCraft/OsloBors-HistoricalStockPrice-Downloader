@@ -44,9 +44,9 @@ def merge(path, saveFile=False):
             
         if i == 0: #First run, keep a copy of the df as df2
             stack = df.copy()
-        # elif i == 1: #Second run merge df2 with df
-        #     stack = pd.concat([df2, df], axis=1)
+
         else: #After that, just add the new df's to the combined frame
+            
             stack = pd.concat([stack, df], axis=1)
         i+=1
             

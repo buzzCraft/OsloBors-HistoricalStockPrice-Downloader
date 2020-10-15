@@ -36,7 +36,7 @@ import pandas as pd
 basePath= os.getcwd()  #Get path that main.py is saved in
 path=os.path.join(basePath, 'data') #In
 
-#downloader.stockDataDownloader(path)    #Download data
+downloader.stockDataDownloader(path)    #Download data
 
 
 df = merger.merge(path) #Merge data, set (path, True)to save combined df as csv

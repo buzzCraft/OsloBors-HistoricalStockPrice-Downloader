@@ -7,11 +7,18 @@ import requests
 import pandas as pd
 import os
 
-## Take path ('c:\my\path') and file extension ('.csv') and return a list with files
-def xlsxToCsv(file, newfilepath):  
-
+## Take path ('c:\my\path') and TICKER (STL)
+def xlsxToCsv(path, TICKER, date=False):  
+    file = os.path.join(path, f'{TICKER}.xlsx')
+    newfilepath = os.path.join(path, f'{TICKER}.csv')
     print(f'Converting {file} to csv file')
     read_file = pd.read_excel (file)
+
+    read_file.rename(columns={'Siste': f'{TICKER} Last', 'Kjøper': 'Buy', 'Selger' : 'Sell', 'Høy' : 'High', 'Lav' : 'Low', 'Toralt omsatt(NOK)' : 'Total traded(NOK)', 'Totalt antall' : 'Volume', 'Antall off. handler' : 'Public trades', 'Antall handler totalt' : 'All trades'}, inplace=True)
+    if not date: 
+        read_file.drop(read_file.columns[0], axis=1, inplace=True)
+    else:
+        read_file.rename(columns={f'{TICKER}': 'Date'}, inplace=True)    
     read_file.to_csv (newfilepath, index = None, header=True)
 
 def stockDataDownloader(path, tickFile='./Tick.csv'):
@@ -38,9 +45,14 @@ def stockDataDownloader(path, tickFile='./Tick.csv'):
         csv_file.write(url_content)
         	        
         csv_file.close()
-        xlsxToCsv(os.path.join(path, f'{TICKER}.xlsx'),os.path.join(path, f'{TICKER}.csv')) #Converting from xlsx to csv
+        if TICKER == "XXL":
+            date=True
+        else:
+            date=False
+        xlsxToCsv(path, TICKER, date) #Converting from xlsx to csv
         print(f'Historical data for {TICKER} downloaded')
         os.remove(os.path.join(path, f'{TICKER}.xlsx')) #Deleting the xlsx file
+        
 
 
     
