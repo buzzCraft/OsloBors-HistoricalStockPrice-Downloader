@@ -3,11 +3,6 @@
 
 
 ## Usage
-Run the script and it will start download csv files from https://www.oslobors.no/
-Change the Tick.csv file if you need a smaller selection of stocks
-
-
-### Usage:
     Run main.py. It will download all the files and convert them to a class obj and convert the files
     to csv in /data/
     You can then use merger.merge() and pass a list of obj to create a merged data set to be saved
