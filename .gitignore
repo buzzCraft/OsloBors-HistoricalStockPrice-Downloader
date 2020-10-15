@@ -269,3 +269,6 @@ data/TIETOO.csv
 data/THIN.csv
 data/TGS.xlsx
 data/s.txt
+__pycache__/dlClass.cpython-38.pyc
+*.pyc
+__pycache__/dlClass.cpython-38.pyc
