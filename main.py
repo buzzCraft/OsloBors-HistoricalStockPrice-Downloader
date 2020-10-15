@@ -41,13 +41,13 @@ stockList = []
 for TICKER in tickerList:
     stockList.append(stockClass.Stock(TICKER))
 date = True
-# for stock in stockList:
+for stock in stockList:
     
-    # stock.downloadData(date)
-    # stock.readData()
-    # print(stock.data.head())
-    # stock.plotData()                                     #Time consuming!!
-    # date = False
+    stock.downloadData(date)
+    stock.readData()
+    print(stock.data.head())
+    # stock.plotData()                               
+    date = False
     
 merger.merge(stockList, True)
 # data.downloadData()
