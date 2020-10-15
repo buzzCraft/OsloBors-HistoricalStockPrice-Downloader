@@ -30,18 +30,12 @@ import pandas as pd
 
 
     
+dir = os.path.join(os.path.join(os.getcwd(), 'data'))
 
-
-
-# basePath = os.getcwd()  #Get path that main.py is saved in
-# path = os.path.join(basePath, 'data') #In
-
-# downloader.stockDataDownloader(path)    #Download data
-
-
-# df = merger.merge(path) #Merge data, set (path, True)to save combined df as csv
-
-# print(df.head())
+if not os.path.exists(dir):
+    print(1)
+    os.mkdir(dir)
+    os.mkdir(os.path.join(dir, 'comb'))
 
 tickerList=[]
 #Convert the CSV to list
@@ -57,7 +51,7 @@ for stock in stockList:
     stock.downloadData()
     stock.readData()
     print(stock.data.head())
-    stock.plotData()
+#    stock.plotData()                                     #Time consuming!!
 
 merger.merge(stockList, True)
 # data.downloadData()
