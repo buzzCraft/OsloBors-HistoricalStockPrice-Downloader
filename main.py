@@ -54,6 +54,4 @@ for stock in stockList:
     date = False
     
 merger.merge(stockList, True)
-# data.downloadData()
-# x = data.saveData()
-# print(x)
+

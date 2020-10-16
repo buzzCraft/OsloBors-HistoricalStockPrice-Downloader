@@ -27,9 +27,10 @@ def merge(stocks, saveFile=False):
         
             
     
-    # print(stack.head(5))
+    
     if saveFile:
         stack.to_csv(os.path.join(path, 'comb', 'bigframe.csv'), sep=";")
+    
     return stack
 
 if __name__ == "__main__":
