@@ -37,9 +37,13 @@ class Stock():
     def readData(self):
         """ Method to read data from csv file"""
         self.data = pd.read_csv(self.filepath, sep=",")
-        if self.date:
-            self.data.iloc[:, 0]= pd.to_datetime(self.data.iloc[:, 0]) #Convert date to datetime
-            self.data.info()
+        # if self.date:
+        self.data.iloc[:, 0]= pd.to_datetime(self.data.iloc[:, 0]) #Convert date to datetime
+            
+            # self.data.info()
+        # self.data = self.data.sort_index(axis=1 ,ascending=True)
+        self.data = self.data.iloc[::-1]
+        print("Sorted")
     def getData(self):
         """ Return a dataframe with all data"""
         return self.data
@@ -47,7 +51,7 @@ class Stock():
     def plotData(self):
         """Method to plot stock price""" 
         try:                               
-            plt.figure(figsize=(10,10))
+            plt.figure(figsize=(16,6))
             plt.plot(self.data["Date"], self.data[f'{self.TICKER} Last'])
             plt.xlabel("date")
             plt.ylabel("price (NOK)")
@@ -62,9 +66,12 @@ class Stock():
         Take ints for rolling mean:
             stock.plotRollingMean(30,40)
         """
+
         self.data[f'{self.TICKER} Last'].plot(figsize=(16,6))
         for days in argv:
+            # plt.plot(self.data.rolling(window=days).mean()[f'{self.TICKER} Last'])
             self.data.rolling(window=days).mean()[f'{self.TICKER} Last'].plot()
+        plt.show()
         
             
 
