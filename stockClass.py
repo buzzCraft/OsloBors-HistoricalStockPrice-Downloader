@@ -55,7 +55,18 @@ class Stock():
             plt.show()
         except:
             pass
-
+    
+    def plotRollingMean(self, *argv):
+        """ Metod to plot rolling mean
+        
+        Take ints for rolling mean:
+            stock.plotRollingMean(30,40)
+        """
+        self.data[f'{self.TICKER} Last'].plot(figsize=(16,6))
+        for days in argv:
+            self.data.rolling(window=days).mean()[f'{self.TICKER} Last'].plot()
+        
+            
 
 
     def downloadData(self, date=True):                                        #Set date = True for one file that have 5 yr of data                                      

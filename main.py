@@ -40,7 +40,11 @@ stockList = []
 
 for TICKER in tickerList:
     stockList.append(stockClass.Stock(TICKER))
-date = True
+date = True #To copy the date column from first csv file
+
+# stock = stockList[0]
+# stock.plotRollingMean(10,20,30)
+
 for stock in stockList:
     
     stock.downloadData(date)
