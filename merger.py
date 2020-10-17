@@ -16,14 +16,14 @@ def merge(stocks, saveFile=False):
     for stock in stocks:
     
         df = stock.getData() #Call the object for the dataframe    
-            
+        print(stock.name())    
         if first: #First run, keep a copy of the df as df2
             stack = df.copy()
             first = False
 
         else: #After that, just add the new df's to the combined frame
-            
             stack = pd.concat([stack, df], axis=1)
+
         
             
     

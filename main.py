@@ -18,18 +18,18 @@ Usage:
 import merger
 import os
 import stockClass
-import pandas as pd
+# import pandas as pd
 
 
     
-dir = os.path.join(os.path.join(os.getcwd(), 'data'))
+dir = os.path.join(os.path.join(os.getcwd(), 'data'))     #Make needed folder structure
 
 if not os.path.exists(dir):
     os.mkdir(dir)
     os.mkdir(os.path.join(dir, 'comb'))
 
 tickerList=[]
-#Convert the CSV to list
+#Convert the Ticker CSV to  ticker list
 with open('./Tick.csv', 'r') as f:
     liste = f.readlines()
     for item in liste:
@@ -40,20 +40,20 @@ stockList = []
 
 for TICKER in tickerList:
     stockList.append(stockClass.Stock(TICKER))
-date = True #To copy the date column from first csv file
 
-stock = stockList[0]
-# stock.plotData()
-stock.plotRollingMean(10,20)
-print(stock.data.head())
+# 
 
 for stock in stockList:
     
-    stock.downloadData(date)
-    stock.readData()
-    print(stock.data.head())
-    # stock.plotData()                               
-    date = False
-    
-merger.merge(stockList, True)
+    stock.downloadData()                                          #Download data
+    stock.readData()                                              #Read downloaded data
+    print(stock.data.head())                                      #Print first 5 rows of df
+
+
+
+stock = stockList[1]                                             #Do operation on one stock
+# # stock.plotData()
+stock.plotRollingMean(10,20)                                     #Plot stock with rolling mean for x,y and z days
+# print(stock.data.head())    
+merger.merge(stockList, saveFile=True)                                    #Merge all stocks to one big df and save to csv
 
