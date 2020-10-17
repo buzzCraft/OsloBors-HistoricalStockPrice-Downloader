@@ -24,6 +24,7 @@
 	It take TICKER as input ('XXL')
 
 Methods
+
 	name() - Returns the ticker
 
 	downloadData() - Download a xlsx from Oslobors, converts it to csv and delete the xlsx file
