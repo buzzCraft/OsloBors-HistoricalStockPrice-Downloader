@@ -41,7 +41,7 @@ class Stock():
         self.data = self.data.sort_values(by='Date')               #Sorting date to get correct plots    
         self.data.set_index('Date',inplace=True)                   #Setting date as index
 
-        print("Sorted")
+
     def getData(self):
         """ Return a dataframe with all data"""
         return self.data

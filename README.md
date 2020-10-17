@@ -19,6 +19,31 @@
 	* Add more functions to stock class
 	* and more...
 
+## StockClass
+	The StockClass is a class to download and manipulate stock data.
+	It take TICKER as input ('XXL')
+
+Methods
+	name() - Returns the ticker
+
+	downloadData() - Download a xlsx from Oslobors, converts it to csv and delete the xlsx file
+
+	xlsxToCsv() - Helper method for downloadData()
+
+	getData() - Returns a pandas dataframe with all data
+
+	readData() - Read the data from a csv, convert date to datetime and sort
+	the file with respect to accending date
+
+	plotData() - Plot the stock closing price
+
+	plotRollingMean(*argv) - Plot stock closing price and rollingMean for 
+	the days passed in *argv: plotRollingMean(10,40,60) - will give a plot with four lines
+	(the lines do not have labels atm)
+
+
+
+
 ## Disclaimer
 The script will create some server traffic, and running it multiple times, might be
 seen as a (poor) DDOS attack. Please use it responsibly
