@@ -8,6 +8,7 @@ Created on Sun Oct 11 17:06:00 2020
 
 import os
 import pandas as pd
+import numpy as np
 
 
 def merge(stocks, saveFile=False):
@@ -27,7 +28,7 @@ def merge(stocks, saveFile=False):
         
             
     
-    
+    stack.replace("", np.nan, inplace=True)
     if saveFile:
         stack.to_csv(os.path.join(path, 'comb', 'bigframe.csv'), sep=";")
     

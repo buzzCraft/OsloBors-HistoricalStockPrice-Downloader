@@ -17,8 +17,21 @@ Usage:
 
 import merger
 import os
-import stockClass
+import stockClassYahoo as stockClass
+from datetime import date
 # import pandas as pd
+
+
+
+
+def fetchToday():                                    #fetch today's date
+    today = date.today()
+
+# dd/mm/YY
+    return today.strftime("%Y-%m-%d")
+   
+
+today=fetchToday()
 
 
     
@@ -33,7 +46,9 @@ tickerList=[]
 with open('./Tick.csv', 'r') as f:
     liste = f.readlines()
     for item in liste:
-        tickerList.append(item.rstrip("\n")) #Stripping newline in csv
+        item=item.rstrip("\n")
+        item=item+".OL"
+        tickerList.append(item) #Stripping newline in csv
         
 print(tickerList)
 stockList = []
@@ -45,15 +60,17 @@ for TICKER in tickerList:
 
 for stock in stockList:
     
-    stock.downloadData()                                          #Download data
-    stock.readData()                                              #Read downloaded data
+    stock.downloadData('2005-01-01',today)                                          #Download data
+    stock.readData()   
+    stock.fixNa()                                           #Read downloaded data
     print(stock.data.head())                                      #Print first 5 rows of df
 
 
 
-stock = stockList[1]                                             #Do operation on one stock
+stock = stockList[1]
+                                             #Do operation on one stock
 # # stock.plotData()
-stock.plotRollingMean(10,20)                                     #Plot stock with rolling mean for x,y and z days
+stock.plotRollingMean(10,20,60)                                     #Plot stock with rolling mean for x,y and z days
 # print(stock.data.head())    
 merger.merge(stockList, saveFile=True)                                    #Merge all stocks to one big df and save to csv
 
